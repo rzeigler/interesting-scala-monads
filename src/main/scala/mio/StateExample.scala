@@ -2,7 +2,7 @@ package mio
 
 object StateExample extends MIOApp {
   def run(args: List[String]): MIO[Unit] =
-    execute.runA(0)
+    execute.runA(76)
 
   def execute: StateT[MIO, Int, Unit] =
     Monad[({ type L[A] = StateT[MIO, Int, A] })#L].forever(step)
@@ -10,7 +10,7 @@ object StateExample extends MIOApp {
   def step: StateT[MIO, Int, Unit] =
     for {
       current <- StateT.get[MIO, Int]
-      _ <- StateT.liftF(putStrLn(s"current: $current"))
+      _ <- StateT.liftF(putStrLn(s"thermostate set to $current"))
       modify <- StateT.liftF(getStrLn)
       _ <- if (modify == "+") {
         StateT.modify[MIO, Int](_ + 1)
