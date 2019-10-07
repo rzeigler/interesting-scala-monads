@@ -16,14 +16,19 @@ name := "hello-world"
 organization := "ch.epfl.scala"
 version := "1.0"
 
+scalacOptions += "-Ypartial-unification"
+
 // Note, it's not required for you to define these three settings. These are
 // mostly only necessary if you intend to publish your library's binaries on a
 // place like Sonatype or Bintray.
+resolvers += Resolver.sonatypeRepo("releases")
 
+addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full)
 
 // Want to use a published library in your project?
 // You can define other libraries as dependencies in your build like this:
 libraryDependencies += "org.typelevel" %% "cats-core" % "1.6.0"
+
 // Here, `libraryDependencies` is a set of dependencies, and by using `+=`,
 // we're adding the cats dependency to the set of dependencies that sbt will go
 // and fetch when it starts up.
